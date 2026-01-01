@@ -2,6 +2,15 @@
 import React, { useState } from "react"
 import { signIn } from "@/lib/auth-client"
 import { GithubIcon } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
 
 const LoginUI = () => {
   const [loading, setLoading] = useState(false)
@@ -17,66 +26,80 @@ const LoginUI = () => {
   }
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-black via-[#020617] to-black flex items-center justify-center px-6">
-      <div className="max-w-6xl w-full grid md:grid-cols-2 gap-10 items-center">
-
+    <div className="flex min-h-screen w-full items-center justify-center bg-background p-6">
+      <div className="grid w-full max-w-5xl gap-10 lg:grid-cols-2 lg:gap-16">
         {/* ---------------- LEFT CONTENT ---------------- */}
-        <div className="text-white">
-          <h1 className="text-5xl md:text-6xl font-extrabold leading-tight">
-            The AI Pull Request  
-            <span className="text-indigo-400"> Reviewer</span>  
+        <div className="flex flex-col justify-center space-y-6">
+          <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl text-foreground">
+            The AI Pull Request <br />
+            <span className="text-primary">Reviewer</span> <br />
             Your Team Deserves
           </h1>
 
-          <p className="mt-6 text-gray-300 text-lg leading-relaxed">
-            Merge-Mate reviews your PRs like a real senior engineer —
-            deeply contextual, logic-aware, zero-fluff feedback.
-            Faster merges, fewer bugs, happier devs.
+          <p className="text-lg text-muted-foreground leading-relaxed">
+            Merge-Mate reviews your PRs like a real senior engineer — deeply
+            contextual, logic-aware, zero-fluff feedback. Faster merges, fewer
+            bugs, happier devs.
           </p>
 
-          <div className="mt-6 grid grid-cols-2 gap-3 text-gray-300 text-sm">
-            <div className="bg-transparent border border-white/10 rounded-xl p-4">
-              <p className="font-semibold text-white">Understands Codebase</p>
-              <p className="text-gray-400">RAG + semantic awareness</p>
-            </div>
-            <div className="bg-transparent border border-white/10 rounded-xl p-4">
-              <p className="font-semibold text-white">Engineer-Style Reviews</p>
-              <p className="text-gray-400">Reasoned + practical feedback</p>
-            </div>
-            <div className="bg-transparent border border-white/10 rounded-xl p-4">
-              <p className="font-semibold text-white">Instant & Reliable</p>
-              <p className="text-gray-400">No waiting — just insight</p>
-            </div>
-            <div className="bg-transparent border border-white/10 rounded-xl p-4">
-              <p className="font-semibold text-white">Seamless GitHub</p>
-              <p className="text-gray-400">Plug & play integration</p>
-            </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            {[
+              {
+                title: "Understands Codebase",
+                desc: "RAG + semantic awareness",
+              },
+              {
+                title: "Engineer-Style Reviews",
+                desc: "Reasoned + practical feedback",
+              },
+              {
+                title: "Instant & Reliable",
+                desc: "No waiting — just insight",
+              },
+              {
+                title: "Seamless GitHub",
+                desc: "Plug & play integration",
+              },
+            ].map((item, idx) => (
+              <div
+                key={idx}
+                className="rounded-lg border bg-card/50 p-4 shadow-sm"
+              >
+                <p className="font-semibold text-foreground">{item.title}</p>
+                <p className="text-sm text-muted-foreground">{item.desc}</p>
+              </div>
+            ))}
           </div>
         </div>
 
         {/* ---------------- RIGHT LOGIN CARD ---------------- */}
-        <div className=" p-8">
-          <h2 className="text-white text-3xl font-semibold text-center">
-            Sign in to Continue
-          </h2>
-          <p className="text-gray-400 text-center mt-2 text-sm">
-            Connect GitHub to enable AI reviews
-          </p>
-
-          <button
-            onClick={handleGithubLogin}
-            disabled={loading}
-            className="mt-7 w-full flex items-center justify-center gap-2 bg-white text-black font-semibold py-3 rounded-xl hover:bg-gray-100 transition disabled:opacity-60"
-          >
-            <GithubIcon size={20} />
-            {loading ? "Connecting..." : "Continue with GitHub"}
-          </button>
-
-          <p className="text-gray-400 text-xs text-center mt-5">
-            Read-only repo access. Secure. Private. No password stored.
-          </p>
+        <div className="flex items-center justify-center">
+          <Card className="w-full max-w-md shadow-lg border-2">
+            <CardHeader className="text-center space-y-1">
+              <CardTitle className="text-2xl font-bold">Sign in</CardTitle>
+              <CardDescription>
+                Connect GitHub to enable AI reviews
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="grid gap-4">
+              <Button
+                variant="default"
+                size="lg"
+                className="w-full gap-2 font-semibold"
+                onClick={handleGithubLogin}
+                disabled={loading}
+              >
+                <GithubIcon className="h-5 w-5" />
+                {loading ? "Connecting..." : "Continue with GitHub"}
+              </Button>
+            </CardContent>
+            <CardFooter>
+              <p className="w-full text-center text-xs text-muted-foreground">
+                Read-only repo access. Secure. Private. No password stored.
+              </p>
+            </CardFooter>
+          </Card>
         </div>
-
       </div>
     </div>
   )

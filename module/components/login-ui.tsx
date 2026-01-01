@@ -1,82 +1,3 @@
-//  "use client"
-// import React, { useState } from "react"
-// import { signIn } from "@/lib/auth-client"
-// import { GithubIcon } from "lucide-react"
-
-// const LoginUI = () => {
-//   const [loading, setLoading] = useState(false)
-
-//   const handleGithubLogin = async () => {
-//     setLoading(true)
-//     try {
-//       await signIn.social({ provider: "github" })
-//     } catch (error) {
-//       console.error("Error during GitHub sign-in:", error)
-//       setLoading(false)
-//     }
-//   }
-
-//   return (
-//     <div className="min-h-screen w-full bg-gradient-to-br from-[#0B1220] via-[#0F172A] to-black flex items-center justify-center px-4">
-//       <div className="max-w-4xl w-full grid md:grid-cols-2 gap-6 items-center">
-
-//         {/* ---- Left Branding Section ---- */}
-//         <div className="text-white space-y-4">
-//           <h1 className="text-4xl md:text-5xl font-bold">
-//             Merge-Mate
-//           </h1>
-//           <p className="text-gray-300 text-lg leading-relaxed">
-//             AI-powered pull request reviews, GitHub automation,
-//             intelligent RAG-based insights, dashboards & analytics —
-//             everything your development workflow deserves.
-//           </p>
-
-//           <div className="flex flex-wrap gap-2 mt-2 text-sm text-gray-400">
-//             <span className="px-3 py-1 rounded-full bg-white/10 border border-white/10">
-//               AI Code Reviews
-//             </span>
-//             <span className="px-3 py-1 rounded-full bg-white/10 border border-white/10">
-//               GitHub Integration
-//             </span>
-//             <span className="px-3 py-1 rounded-full bg-white/10 border border-white/10">
-//               RAG Powered
-//             </span>
-//             <span className="px-3 py-1 rounded-full bg-white/10 border border-white/10">
-//               Analytics Dashboard
-//             </span>
-//           </div>
-//         </div>
-
-//         {/* ---- Login Card ---- */}
-//         <div className="bg-white/10 border border-white/15 backdrop-blur-xl rounded-2xl p-8 shadow-[0_0_50px_rgba(0,0,0,0.4)]">
-//           <h2 className="text-white text-2xl font-semibold text-center">
-//             Welcome Back 👋
-//           </h2>
-//           <p className="text-gray-300 text-center mt-1">
-//             Sign in to continue to your dashboard
-//           </p>
-
-//           <button
-//             onClick={handleGithubLogin}
-//             disabled={loading}
-//             className="mt-6 w-full flex items-center justify-center gap-2 bg-white text-black font-semibold py-3 rounded-xl hover:bg-gray-100 transition disabled:opacity-60"
-//           >
-//             <GithubIcon size={20} />
-//             {loading ? "Signing in..." : "Continue with GitHub"}
-//           </button>
-
-//           <p className="text-gray-400 text-xs text-center mt-4">
-//             Secure authentication. We never store your credentials.
-//           </p>
-//         </div>
-//       </div>
-//     </div>
-//   )
-// }
-
-// export default LoginUI
-
-
 "use client"
 import React, { useState } from "react"
 import { signIn } from "@/lib/auth-client"
@@ -90,55 +11,69 @@ const LoginUI = () => {
     try {
       await signIn.social({ provider: "github" })
     } catch (error) {
-      console.error("Error during GitHub sign-in:", error)
+      console.error("GitHub login failed", error)
       setLoading(false)
     }
   }
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-[#020617] via-[#020617] to-black flex items-center justify-center px-4">
-      <div className="max-w-4xl w-full grid md:grid-cols-2 gap-6 items-center">
+    <div className="min-h-screen w-full bg-gradient-to-br from-black via-[#020617] to-black flex items-center justify-center px-6">
+      <div className="max-w-6xl w-full grid md:grid-cols-2 gap-10 items-center">
 
-        {/* Branding */}
-        <div className="text-white space-y-4">
-          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight">
-            Merge-Mate
+        {/* ---------------- LEFT CONTENT ---------------- */}
+        <div className="text-white">
+          <h1 className="text-5xl md:text-6xl font-extrabold leading-tight">
+            The AI Pull Request  
+            <span className="text-indigo-400"> Reviewer</span>  
+            Your Team Deserves
           </h1>
 
-          <p className="text-gray-300 text-lg leading-relaxed">
-            Your <span className="text-white font-semibold">AI Pull Request Reviewer</span>.  
-            Get instant, contextual, developer-style reviews powered by advanced AI.
-            No noise. No “hello world” comments. Just real engineering feedback.
+          <p className="mt-6 text-gray-300 text-lg leading-relaxed">
+            Merge-Mate reviews your PRs like a real senior engineer —
+            deeply contextual, logic-aware, zero-fluff feedback.
+            Faster merges, fewer bugs, happier devs.
           </p>
 
-          <ul className="text-gray-400 space-y-2 text-sm mt-2">
-            <li>• Understands your codebase using RAG</li>
-            <li>• Explains reasoning like a senior engineer</li>
-            <li>• Highlights bugs, smells, risks & improvements</li>
-            <li>• Fast, reliable & deeply contextual</li>
-          </ul>
+          <div className="mt-6 grid grid-cols-2 gap-3 text-gray-300 text-sm">
+            <div className="bg-transparent border border-white/10 rounded-xl p-4">
+              <p className="font-semibold text-white">Understands Codebase</p>
+              <p className="text-gray-400">RAG + semantic awareness</p>
+            </div>
+            <div className="bg-transparent border border-white/10 rounded-xl p-4">
+              <p className="font-semibold text-white">Engineer-Style Reviews</p>
+              <p className="text-gray-400">Reasoned + practical feedback</p>
+            </div>
+            <div className="bg-transparent border border-white/10 rounded-xl p-4">
+              <p className="font-semibold text-white">Instant & Reliable</p>
+              <p className="text-gray-400">No waiting — just insight</p>
+            </div>
+            <div className="bg-transparent border border-white/10 rounded-xl p-4">
+              <p className="font-semibold text-white">Seamless GitHub</p>
+              <p className="text-gray-400">Plug & play integration</p>
+            </div>
+          </div>
         </div>
 
-        {/* Login Card */}
-        <div className="bg-white/10 border border-white/15 backdrop-blur-xl rounded-2xl p-8 shadow-[0_0_40px_rgba(0,0,0,0.5)]">
-          <h2 className="text-white text-2xl font-semibold text-center">
-            Sign in with GitHub
+        {/* ---------------- RIGHT LOGIN CARD ---------------- */}
+        <div className=" p-8">
+          <h2 className="text-white text-3xl font-semibold text-center">
+            Sign in to Continue
           </h2>
-          <p className="text-gray-400 text-center text-sm mt-1">
-            Required to review your pull requests
+          <p className="text-gray-400 text-center mt-2 text-sm">
+            Connect GitHub to enable AI reviews
           </p>
 
           <button
             onClick={handleGithubLogin}
             disabled={loading}
-            className="mt-6 w-full flex items-center justify-center gap-2 bg-white text-black font-semibold py-3 rounded-xl hover:bg-gray-100 transition disabled:opacity-60"
+            className="mt-7 w-full flex items-center justify-center gap-2 bg-white text-black font-semibold py-3 rounded-xl hover:bg-gray-100 transition disabled:opacity-60"
           >
             <GithubIcon size={20} />
             {loading ? "Connecting..." : "Continue with GitHub"}
           </button>
 
-          <p className="text-gray-400 text-xs text-center mt-4">
-            Read-only access. We never store your credentials.
+          <p className="text-gray-400 text-xs text-center mt-5">
+            Read-only repo access. Secure. Private. No password stored.
           </p>
         </div>
 

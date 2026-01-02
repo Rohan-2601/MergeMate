@@ -22,3 +22,55 @@ export const getGithubToken = async () => {
      }
      return account.accessToken
     }
+    import { Octokit } from "octokit";
+
+export async function fetchUserContribution(token: string, username: string) {
+  const octokit = new Octokit({ auth: token });
+
+  const query = `
+    query($username: String!) {
+      user(login: $username) {
+        contributionCollection {
+          contributionCalendar {
+            totalContributions
+            weeks {
+              contributionDays {
+                contributionCount
+                date
+                color
+              }
+            }
+          }
+        }
+      }
+    }
+  `;
+
+  interface ContributionData {
+    user: {
+      contributionCollection: {
+        contributionCalendar: {
+          totalContributions: number;
+          weeks: {
+            contributionDays: {
+              contributionCount: number;
+              date: string;
+              color: string;
+            }[];
+          }[];
+        };
+      };
+    };
+  }
+
+  try {
+    const response: ContributionData = await octokit.graphql(query, {
+      username,
+    });
+
+    return response.user.contributionCollection.contributionCalendar;
+  } catch (error: any) {
+    console.error("Failed to fetch contributions:", error?.message || error);
+    throw new Error("Unable to fetch user contribution data");
+  }
+}
